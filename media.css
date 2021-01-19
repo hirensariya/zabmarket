@@ -1,0 +1,34 @@
+
+
+@media (max-width:600px) and (min-width:200px){
+    #grid{
+    margin-left:0.4rem;
+    
+    }
+    #carouselExampleControls
+    {
+    margin-left: 1rem;
+    }
+    #carouselExampleCaptions img{
+    
+    height: 250px;
+    width: 100%;
+    }
+    .btn-group
+    {
+    margin-left: 80px;
+    }
+    .support .container img{
+    justify-content: center;
+    height: 60px;
+    width: 60px;
+    margin-left: 0.3rem;
+    
+    }
+    .support .container .h4 h4{
+    margin-left: 1rem;
+    font-size: 0.5rem;
+    }
+    
+    }
+    
