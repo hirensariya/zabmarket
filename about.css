@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+*{
+    padding: 0%;
+    margin: 0%;
+}
+
+body{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    
+}
+.contact-info
+{
+ background-color: #265aa8;
+color: #ffffff;
+height: 70vh;
+
+}
+.contcat-left
+{
+    justify-content: center;
+   
+}
+.contcat-left .fl
+{
+    justify-content: center;
+    width: 80%;
+    font-weight: 500;
+    margin:auto;
+    margin-top:110px;
+    padding: 40px;
+}
+.contcat-left .fl .cicon
+{
+    display:flex;
+}
+.contcat-left .fl h2
+{
+    color:#fe8b08;
+    font-weight: 500;
+}
+.contcat-left .fl i
+{
+    margin:5px;
+}
+.contcat-left .fl .cicon .email
+{
+    font-size: 20px;
+    
+}
+.contcat-right
+{
+    justify-content: center;
+   
+}
+.contcat-right .f
+{
+    
+    justify-content: center;
+    width: 60%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    color: #fe8b08;
+    font-weight: 500;
+    margin-top:60px;
+    padding: 20px;
+}
+
+.contcat-right .btn button{
+    padding: 15px 40px;
+    font-size: 20px;
+    border: none;
+    background-color: #093a86;
+    color: #ffffff;
+    font-weight: 500;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+@media(max-width: 800px)
+{
+    .contact-info
+    {
+    margin-top: 0px;
+    background-color: #265aa8;
+    color: #ffffff;
+    height: 140vh;
+    
+    }
+      .contcat-left .fl
+    {
+        width: 100%;
+        font-weight: 500;
+        margin-top: 20px;
+    }
+    .contcat-left .fl .cicon
+    {
+        display:block;
+        
+    }
+    .contcat-right .f
+{
+    
+    width: 100%;
+    font-weight: 500;
+    margin-top:0px;
+    /* padding: 20px; */
+}
+   
+.contcat-left .fl .cicon .email
+{
+    font-size: 15px;
+    
+}
+
+
+
+}
+@media(min-width: 700px) and (max-width: 1200px)
+{
+   
+}

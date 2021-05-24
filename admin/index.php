@@ -13,7 +13,7 @@ session_start();
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="index-login.css">
   <link rel="stylesheet" href="media.css">
   <title>Hello, world!</title>
 </head>
@@ -21,13 +21,13 @@ session_start();
 <body>
   <form class="form-signin" method="POST">
     <div class="text-center mb-4">
-      <img class="mb-4" src="z.svg" alt="" width="72" height="72">
+      <img class="mb-4" src="image/z.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Zabmarket.in</h1>
       <!-- <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p> -->
     </div>
 
     <div class="form-label-group">
-      <input type="email" id="inputuser" class="form-control" placeholder="" name="email" required="" autofocus="">
+      <input type="text" id="inputuser" class="form-control" placeholder="" name="email" required="" autofocus="">
       <label for="inputEmail">User name</label>
     </div>
 
@@ -35,7 +35,6 @@ session_start();
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required="">
       <label for="inputPassword">Password</label>
     </div>
-
     <button class="btn btn-lg btn-primary btn-block" name="login" type="submit">Sign in</button>
 
     <a href="register.php" id="register">for new register</a>
@@ -56,14 +55,11 @@ session_start();
 </html>
 <?php
 include 'c.php';
-
-$num = mysqli_num_rows($quary);
-$selectquery = "select * from r";
 if(isset($_POST['login']))
 {
-  $email=$_POST['email'];
+  $username=$_POST['email'];
   $password=$_POST['password'];
-  $email_searche="select * from r where email='$email' and password='$password'";
+  $email_searche="select * from admin where username='$username' and pass='$password'";
   $quary = mysqli_query($con,$email_searche);
   $r = mysqli_fetch_array($quary);
   $email_count = mysqli_num_rows($quary);
@@ -71,14 +67,12 @@ if(isset($_POST['login']))
 {
   if($email_count>0)
   {
-    $_SESSION["userid"] = $r['id'];
-    // echo($r['id']);
-    // echo($_SESSION["userid"]);
+    $_SESSION["uid"] = $r['id'];
 
     ?>
     <script>
 
-    location.replace('index.php');
+    location.replace('dashboard.php');
     document.getElementById('.a1').innerHTML ='Myaccount';
     </script>
     <?php

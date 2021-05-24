@@ -1,12 +1,13 @@
  <?php
   include 'c.php';
+  session_start();
   $select = "select * from product";
   $qua = mysqli_query($con, $select);
   $num = mysqli_num_rows($qua);
-  $selectss = "select * from product where id='8'";
-  $q = mysqli_query($con, $selectss);
-
-  $r = mysqli_fetch_array($q)
+  // $selectss = "select * from product where id='8'";
+  // $q = mysqli_query($con, $selectss);
+  // $r = mysqli_fetch_array($q);
+  
 
   ?>
 
@@ -29,6 +30,7 @@
    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="style.css">
    <link rel="stylesheet" href="media.css">
+   <!-- <link rel="stylesheet" href="bar.css"> -->
 
    <title>Welcome To Zabmarket</title>
  </head>
@@ -70,10 +72,17 @@
            <a class="nav-link" href="about.html">About us</a>
          </li>
        </ul>
-       <form class="form-inline my-2 my-lg-0">
-         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-         <button class="btn btn-outline-success my-2 my-sm-0 bg-light" type="submit">Search</button>
-       </form>
+       <input type="hidden" name="" id="myaccount" value="<?php echo($_SESSION["userid"]); ?>">
+       <h3 id="login"><a href="login.php"> Login</a></h3>
+       <h3 id="account" style="display:none;"><a href="cart.php" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+      </svg></a><?php
+        $userid=$_SESSION["userid"];
+        $selp = "select * from cart where userid = '$userid'";
+        $ap = mysqli_query($con, $selp);
+        $num = mysqli_num_rows($ap);
+      echo $num;  ?><a href="myaccount.php"> My Account</a></h3>
+
      </div>
 
    </nav>
@@ -132,21 +141,17 @@
        <!-- owl carousel -->
        <div class="owl-carousel owl-theme">
          <?php
-          // include 'c.php';
-          // $select = "select * from product";
-          // $qua = mysqli_query($con, $select);
-          // $num = mysqli_num_rows($qua);
           while ($re = mysqli_fetch_array($qua)) { ?>
            <div class="item py-2">
              <div class="col-md-12 grid-item product">
                <div class="card" id="newp">
-                 <a href="productpage.php?id=<?php echo ($re['id']); ?>"><img class="card-img-top img-fluid" src="<?php echo ($re['image']); ?>"></a>
+                 <a href="productpage.php?id=<?php echo ($re['id']); ?>"><img class="card-img-top img-fluid" src="admin/<?php echo ($re['image']); ?>"></a>
                  <div class="card-title">
                    <h4><?php echo ($re['name']); ?></h4>
                  </div>
                  <div class="card-text">
                    <?php echo ($re['dis']); ?> <br /><br />
-                   <a class="btn btn-success text-light"> Buy Now</a> &nbsp; <a class="btn btn-danger text-light"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</a> <br /><br />
+                   <a href="buy.php?id=<?php echo ($re['id']); ?>" class="btn btn-success text-light"> Buy Now</a> &nbsp; <a href="addcart.php?id=<?php echo ($re['id']); ?>" class="btn btn-danger text-light"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</a> <br /><br />
                  </div>
                </div>
              </div>
@@ -183,13 +188,13 @@
             while ($re = mysqli_fetch_array($qua)) { ?>
              <div class="col-sm-2 grid-item <?php echo ($re['cat']); ?>">
                <div class="card" id="newp">
-                 <a href="productpage.php?id=<?php echo ($re['id']); ?>"><img class="card-img-top img-fluid" src="<?php echo ($re['image']); ?>"></a>
+                 <a href="productpage.php?id=<?php echo ($re['id']); ?>"><img class="card-img-top img-fluid" src="admin/<?php echo ($re['image']); ?>"></a>
                  <div class="card-title">
                    <h4><?php echo ($re['name']); ?></h4>
                  </div>
                  <div class="card-text">
                    <?php echo ($re['dis']); ?> <br /><br />
-                   <a class="btn btn-success text-light"> Buy Now</a> &nbsp; <a class="btn btn-danger text-light"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</a> <br /><br />
+                   <a href="buy.php?id=<?php echo ($re['id']); ?>" class="btn btn-success text-light"> Buy Now</a> &nbsp; <a href="addcart.php?id=<?php echo ($re['id']); ?>" class="btn btn-danger text-light"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</a> <br /><br />
                  </div>
                </div>
              </div>
@@ -227,23 +232,30 @@
      <div class="row mt-5" id="newdiv">
        <?php
         include 'c.php';
-        $select = "select * from limited";
+        $n=0;
+        $select = "select * from product";
         $qua = mysqli_query($con, $select);
-        while ($re = mysqli_fetch_array($qua)) { ?>
+        while ($re = mysqli_fetch_array($qua)) {
+          
+          if($n<=5){?>
          <div class="col-sm-2 grid-item <?php echo ($re['cat']); ?>">
            <div class="card" id="newp">
-             <a href="productpageoflimited.php?id=<?php echo ($re['id']); ?>"><img class="card-img-top img-fluid" src="<?php echo ($re['image']); ?>"></a>
+             <a href="productpageoflimited.php?id=<?php echo ($re['id']); ?>"><img class="card-img-top img-fluid" src="admin/<?php echo ($re['image']); ?>"></a>
              <div class="card-title">
                <h4><?php echo ($re['name']); ?></h4>
              </div>
              <div class="card-text">
                <?php echo ($re['dis']); ?> <br /><br />
-               <a class="btn btn-success text-light"> Buy Now</a> &nbsp; <a class="btn btn-danger text-light"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</a> <br /><br />
+               <a href="buy.php?id=<?php echo ($re['id']); ?>" class="btn btn-success text-light"> Buy Now</a> &nbsp; <a href="addcart.php?id=<?php echo ($re['id']); ?>" class="btn btn-danger text-light"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</a> <br /><br />
              </div>
            </div>
          </div>
        <?php
         }
+        else{
+          break;
+        }
+      $n++;}
         ?>
      </div>
      <div class="card-footer text-info">
@@ -346,3 +358,19 @@
 
 
  </html>
+ <script>
+ function my()
+ {
+   const my = document.getElementById("myaccount").value;
+  //  alert(my);
+   if(my > 0)
+   {
+    document.getElementById("account").style.display="block";
+    document.getElementById("login").style.display="none";
+   }
+   else{
+
+   }
+ }
+ my();
+   </script>
